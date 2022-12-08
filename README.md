@@ -145,4 +145,4 @@ Usage: <class_name>.update(<_id>, <dictionary>)
 Ezra Nobrega <ezra.nobrega@outlook.com>
 Justin Majetich <justinmajetich@gmail.com>
 ## Contributing Author
-*Henry Hsu* [Github](https://github.com/henryh28)
+*Kaiga Munene* [Github](https://github.com/KaigaMunene)
