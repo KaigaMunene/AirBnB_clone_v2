@@ -1,30 +1,19 @@
 #!/usr/bin/python3
-'''
-    Define the class City.
-'''
-
+"""This is the city class"""
+import models
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey, Integer, DateTime
+from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
-from os import environ
 
 
 class City(BaseModel, Base):
-    '''
-        Define the class City that inherits from BaseModel.
-    '''
-
-    __tablename__ = "cities"
+    """This is the class for City
+    Attributes:
+        state_id: The state id
+        name: input name
+    """
+    # initialize class for file/db storage type
+    __tablename__ = 'cities'
     name = Column(String(128), nullable=False)
-    state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
-
-    if environ.get("HBNB_TYPE_STORAGE") == "db":
-        places = relationship("Place", cascade="all, delete-orphan",
-                              backref="cities")
-    else:
-        state_id = ""
-        name = ""
-
-
-# Reference: https://stackoverflow.com/questions/4906977/
-# how-do-i-access-environment-variables-from-python
+    state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
+    places = relationship('Place', cascade='all, delete', backref='cities')

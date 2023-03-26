@@ -1,43 +1,37 @@
 #!/usr/bin/python3
-'''
-    Implementation of the State class
-'''
-
+"""This is the state class"""
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Integer, ForeignKey, DateTime
+from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from os import environ
 
 
 class State(BaseModel, Base):
-    '''
-        Implementation for the State.
-    '''
-
-    __tablename__ = "states"
+    """This is the class for State
+    Attributes:
+        __tablename__: name of MySQL table
+        name: input name
+    """
+    __tablename__ = 'states'
     name = Column(String(128), nullable=False)
 
-    if environ.get("HBNB_TYPE_STORAGE") == "db":
-        cities = relationship("City", cascade="all, delete-orphan",
-                              backref="state")
-
-        @property
-        def cities(self):
-            matching_cities = []
-            for city in self.cities:
-                if city.state_id == self.id:
-                    matching_cities.append(city)
-
-            return (matching_cities)
+    if environ['HBNB_TYPE_STORAGE'] == 'db':
+        cities = relationship('City', cascade='all, delete', backref='state')
     else:
-        name = ""
-
         @property
         def cities(self):
-            city_list = []
-            for city in models.storage.all("City").values():
-                if city.state_id == self.id:
-                    city_list.append(city)
-            return (city_list)
+            """Getter method for cities
+            Return: list of cities with state_id equal to self.id
+            """
+            from models import storage
+            from models.city import City
+            # return list of City objs in __objects
+            cities_dict = storage.all(City)
+            cities_list = []
 
-#Ref: https://stackoverflow.com/questions/5033547/sqlalchemy-cascade-delete
+            # copy values from dict to list
+            for city in cities_dict.values():
+                if city.state_id == self.id:
+                    cities_list.append(city)
+
+            return cities_list
