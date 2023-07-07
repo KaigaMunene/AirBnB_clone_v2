@@ -144,5 +144,6 @@ Usage: <class_name>.update(<_id>, <dictionary>)
 ## Original Author
 Ezra Nobrega <ezra.nobrega@outlook.com>
 Justin Majetich <justinmajetich@gmail.com>
+
 ## Contributing Author
 *Kaiga Munene* [Github](https://github.com/KaigaMunene)
